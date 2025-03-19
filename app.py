@@ -87,7 +87,8 @@ def calculate():
 
         # Filter by location
         filtered_df = df[df["LOCATION"].str.contains(user_inputs["location"], case=False, na=False)].copy()
-        
+        filtered_df = filtered_df[filtered_df["DRYDOCK PERIOD"] >= user_inputs["drydock_period"]].copy()        
+
         if filtered_df.empty:
             return jsonify({"error": "No paints match the specified location."}), 400
 
