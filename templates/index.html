@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antifouling Paint Selector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-container" style="background: url('{{ url_for('static', filename='paintpic.png') }}') no-repeat center center/cover;">
+        <div class="main-container">
+            <div class="form-container">
+                <h1>Antifouling Paint Selector</h1>
+                <form id="paintForm">
+                    <div class="form-group">
+                        <label for="drydock_period">Drydock Period (Months):</label>
+                        <input type="number" id="drydock_period" name="drydock_period" required step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label for="idle_days">Idle Days (days):</label>
+                        <input type="number" id="idle_days" name="idle_days" required step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Permitted Location:</label>
+                        <input type="text" id="location" name="location" required>
+                    </div>
+                    <div class="form-group">
+                        <h3>Select Priorities:</h3>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="drydock_period_check" name="drydock_period_check">
+                            <label for="drydock_period_check">Drydock Period</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="fuel_saving_check" name="fuel_saving_check">
+                            <label for="fuel_saving_check">Fuel Saving</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="speed_loss_check" name="speed_loss_check">
+                            <label for="speed_loss_check">Speed Loss</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="idle_days_check" name="idle_days_check">
+                            <label for="idle_days_check">Idle Days</label>
+                        </div>
+                    </div>
+                    <button type="submit">Find Best Options</button>
+                </form>
+                <div id="results">
+                    <h3>Results</h3>
+                    <div class="result-box">
+                        <pre id="resultText"></pre>
+                    </div>
+                </div>
+            </div>
+            <div class="instruction-container">
+                <h2>Instructions</h2>
+                <ul>
+                    <li>Enter the required details in the fields: Drydock Period, Idle Days, and Permitted Location.</li>
+                    <li>Select one or more priorities by checking the corresponding boxes (e.g., Speed Loss, Fuel Saving).</li>
+                    <li>Click 'Find Best Options' to view the top 3 antifouling paint recommendations based on your inputs.</li>
+                    <li>The weights for selected priorities will be distributed equally (e.g., 50% each for 2 priorities, 33% each for 3).</li>
+                    <li>Review the results, which include OEM, offering details, and performance metrics.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('paintForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            
+            try {
+                const response = await fetch('/calculate', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error);
+                }
+
+                let resultText = `Selected Priorities: ${data.priorities.join(', ')}\n\n`;
+                
+                
+                data.results.forEach((result, index) => {
+                    resultText += `${index + 1}: ${result.oem} - ${result.offering}\n`;
+                    resultText += `Speed Loss: ${result.speed_loss}%\n`;
+                    resultText += `Cost: $${result.cost}, Fuel Saving: ${result.fuel_saving}%, Activity: ${result.activity}\n`;
+                    resultText += `Location: ${result.location}\n\n`;
+                });
+
+                document.getElementById('resultText').textContent = resultText;
+            } catch (error) {
+                alert(error.message);
+            }
+        });
+    </script>
+</body>
+</html>

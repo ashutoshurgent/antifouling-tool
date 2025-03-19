@@ -1,0 +1,176 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top for better content flow */
+    overflow: auto; /* Allow body to scroll if content overflows */
+}
+
+.background-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh; /* Minimum height to cover viewport */
+    background: url('{{ url_for('static', filename='logo.png') }}') no-repeat center center/cover; /* Background image */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align content to top */
+}
+
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    width: 100%;
+    position: relative;
+    z-index: 10; /* Ensure boxes are above the background */
+    padding: 20px 0; /* Add padding to ensure content fits */
+}
+
+.form-container {
+    min-width:350px;
+    max-width: 350px;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white for readability */
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+   /* height: auto;*/ /* Allow natural height */
+    max-height: 50%; /* Prevent excessive growth */
+}
+
+.instruction-container {
+    max-width: 350px;
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white for readability */
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+h1 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    flex: 0 0 auto; /* Prevent form groups from growing */
+}
+
+label {
+    font-weight: 500;
+    color: #34495e;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input[type="number"], input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input[type="number"]:focus, input[type="text"]:focus {
+    border-color: #27AEB9;
+    outline: none;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.checkbox-group input {
+    margin-right: 10px;
+}
+
+.checkbox-group label {
+    margin: 0;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #27AEB9;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    flex: 0 0 auto; /* Prevent button from growing */
+}
+
+button:hover {
+    background-color: #1e8f99;
+}
+
+#results {
+    margin-top: 25px;
+    flex: 1 1 auto; /* Allow results to grow and take remaining space */
+    min-height: 0; /* Ensure flex child can shrink */
+}
+
+.result-box {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    max-height: 200px; /* Fixed height for the result box */
+    overflow-y: scroll; /* Always show vertical scrollbar */
+    min-height: 10px; /* Minimum height to ensure visibility */
+}
+
+pre {
+    margin: 0;
+    white-space: pre-wrap;
+    font-size: 14px;
+    color: #2c3e50;
+}
+
+h2 {
+    font-size: 20px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+    color: #34495e;
+    position: relative;
+    padding-left: 20px;
+}
+
+li:before {
+    content: "•";
+    color: #27AEB9;
+    position: absolute;
+    left: 0;
+}
+
+h3 {
+    font-size: 18px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
