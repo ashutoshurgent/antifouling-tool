@@ -86,11 +86,11 @@ def calculate():
         }
 
         # Filter by DRYDOCK PERIOD
-        filtered_df = filtered_df[filtered_df["DRYDOCK PERIOD"] >= user_inputs["drydock_period"]].copy()        
+        filtered_df = df[df["DRYDOCK PERIOD"] >= user_inputs["drydock_period"]].copy()        
         if filtered_df.empty:
             return jsonify({"error": "No manufacturer offers the required number of DRYDOCK PERIOD."}), 400
         # Filter by location
-        filtered_df = df[(df["LOCATION"].str.contains("ALL", case=False, na=False)) | (df["LOCATION"].str.contains(user_inputs["location"], case=False, na=False))].copy()
+        filtered_df = filtered_df[(filtered_df["LOCATION"].str.contains("ALL", case=False, na=False)) | (filtered_df["LOCATION"].str.contains(user_inputs["location"], case=False, na=False))].copy()
         if filtered_df.empty:
             return jsonify({"error": "No paints match the specified location."}), 400
         
