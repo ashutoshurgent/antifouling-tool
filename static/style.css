@@ -13,7 +13,7 @@ body {
     position: relative;
     width: 100%;
     min-height: 100vh; /* Minimum height to cover viewport */
-    background: url('/static/background.jpg') no-repeat center center/cover; /* Use new background image */
+    background: url('/static/paintpic.jpg') no-repeat center center/cover; /* Use new background image */
     display: flex;
     justify-content: center;
     align-items: flex-start; /* Align content to top */
