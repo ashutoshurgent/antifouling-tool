@@ -7,13 +7,16 @@ body {
     justify-content: center;
     align-items: flex-start; /* Align to top for better content flow */
     overflow: auto; /* Allow body to scroll if content overflows */
+    /* Move background image to body */
+    background: url('/static/paintpic.jpg') no-repeat center center/cover;
+    background-attachment: fixed; /* Fix the background so it doesn't scroll */
 }
 
 .background-container {
     position: relative;
     width: 100%;
     min-height: 100vh; /* Minimum height to cover viewport */
-    background: url('/static/paintpic.jpg') no-repeat center center/cover; /* Use new background image */
+    /* Remove background from here since it's now on body */
     display: flex;
     justify-content: center;
     align-items: flex-start; /* Align content to top */
