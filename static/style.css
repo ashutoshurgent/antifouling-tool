@@ -160,6 +160,9 @@ pre {
     white-space: pre-wrap;
     font-size: 14px;
     color: #2c3e50;
+    font-family: 'Roboto', sans-serif; /* Match the font with the rest of the page */
+    font-weight: 400; /* Match the font weight for consistency */
+    line-height: 1.5; /* Improve readability */
 }
 
 h2 {
