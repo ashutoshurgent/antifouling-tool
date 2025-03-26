@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Hull Paint Selector</title>
+    <title>Antifouling Paint Selector</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="background-container" style="background: url('{{ url_for('static', filename='paintpic.jpg') }}') no-repeat center center/cover;">
+    <div class="background-container">
         <div class="main-container">
             <div class="form-container">
-                <h1>Premium Hull Paint Selector</h1>
+                <h1>Antifouling Paint Selector</h1>
                 <form id="paintForm">
                     <div class="form-group">
                         <label for="drydock_period">Drydock Period (Months):</label>
                         <input type="number" id="drydock_period" name="drydock_period" required step="0.1">
                     </div>
                     <div class="form-group">
-                        <label for="idle_days">Idle Days (days/year):</label>
+                        <label for="idle_days">Idle Days (days):</label>
                         <input type="number" id="idle_days" name="idle_days" required step="0.1">
                     </div>
                     <div class="form-group">
@@ -46,6 +46,8 @@
                     </div>
                     <button type="submit">Find Best Options</button>
                 </form>
+            </div>
+            <div class="results-container">
                 <div id="results">
                     <h3>Results</h3>
                     <div class="result-box">
@@ -82,8 +84,8 @@
                     throw new Error(data.error);
                 }
 
-                let resultText = `Selected Priorities: ${data.priorities.join(', ')}\n\n`;
-                
+                let resultText = `Selected Priorities: ${data.priorities.join(', ')}\n`;
+                resultText += `Weights used: ${JSON.stringify(data.weights)}\n\n`;
                 
                 data.results.forEach((result, index) => {
                     resultText += `${index + 1}: ${result.oem} - ${result.offering}\n`;
