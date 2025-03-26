@@ -84,8 +84,8 @@
                     throw new Error(data.error);
                 }
 
-                let resultText = `Selected Priorities: ${data.priorities.join(', ')}\n`;
-                resultText += `Weights used: ${JSON.stringify(data.weights)}\n\n`;
+                let resultText = `Selected Priorities: ${data.priorities.join(', ')}\n\n`;
+                
                 
                 data.results.forEach((result, index) => {
                     resultText += `${index + 1}: ${result.oem} - ${result.offering}\n`;
