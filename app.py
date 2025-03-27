@@ -15,7 +15,7 @@ for col in numeric_columns:
     df[col] = df[col].fillna(0)  # Replace NaN with 0
 
 # Replace NaN in string columns with empty string
-string_columns = ["OEM", "OFFERING", "LOCATION", "ACTIVITY LEVEL"]
+string_columns = ["OEM", "OFFERING", "USECASE TEMPERATURE", "ACTIVITY LEVEL"]
 for col in string_columns:
     df[col] = df[col].fillna("")
 
@@ -61,7 +61,7 @@ def calculate():
         data = request.form
         drydock_period = float(data.get('drydock_period'))
         idle_days = float(data.get('idle_days'))
-        location = data.get('location')
+        region = data.get('region')
         
         # Get selected priorities
         selected_priorities = []
@@ -78,7 +78,7 @@ def calculate():
         user_inputs = {
             "drydock_period": drydock_period,
             "idle_days": idle_days,
-            "location": location,
+            "region": region,
             "w1": weights["w1"],
             "w2": weights["w2"],
             "w3": weights["w3"],
@@ -90,9 +90,9 @@ def calculate():
         if filtered_df.empty:
             return jsonify({"error": "No manufacturer offers the required number of DRYDOCK PERIOD."}), 400
         # Filter by location
-        filtered_df = filtered_df[(filtered_df["LOCATION"].str.contains("ALL", case=False, na=False)) | (filtered_df["LOCATION"].str.contains(user_inputs["location"], case=False, na=False))].copy()
+        filtered_df = filtered_df[(filtered_df["USECASE TEMPERATURE"].str.contains("ALL", case=False, na=False)) | (filtered_df["USECASE TEMPERATURE"].str.contains(user_inputs["region"], case=False, na=False))].copy()
         if filtered_df.empty:
-            return jsonify({"error": "No paints match the specified location."}), 400
+            return jsonify({"error": "No paints match the specified region."}), 400
         
         
 
@@ -112,7 +112,7 @@ def calculate():
                 "cost": row["COST"],
                 "fuel_saving": row["FUEL SAVING"],
                 "activity": row["ACTIVITY LEVEL"],
-                "location": row["LOCATION"]
+                "region": row["USECASE TEMPERATURE"]
             }
             results.append(result)
 

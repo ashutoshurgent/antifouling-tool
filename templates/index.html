@@ -22,8 +22,8 @@
                         <input type="number" id="idle_days" name="idle_days" required step="0.1">
                     </div>
                     <div class="form-group">
-                        <label for="location">Permitted Location:</label>
-                        <input type="text" id="location" name="location" required>
+                        <label for="region">Suitable Region:</label>
+                        <input type="text" id="region" name="region" required>
                     </div>
                     <div class="form-group">
                         <h3>Select Priorities:</h3>
@@ -58,7 +58,7 @@
             <div class="instruction-container">
                 <h2>Instructions</h2>
                 <ul>
-                    <li>Enter the required details in the fields: Drydock Period, Idle Days, and Permitted Location.</li>
+                    <li>Enter the required details in the fields: Drydock Period, Idle Days, and Suitable Region.</li>
                     <li>Select one or more priorities by checking the corresponding boxes (e.g., Speed Loss, Fuel Saving).</li>
                     <li>Click 'Find Best Options' to view the top 3 antifouling paint recommendations based on your inputs.</li>
                     <li>The weights for selected priorities will be distributed equally (e.g., 50% each for 2 priorities, 33% each for 3).</li>
@@ -91,7 +91,7 @@
                     resultText += `${index + 1}: ${result.oem} - ${result.offering}\n`;
                     resultText += `Speed Loss: ${result.speed_loss}%\n`;
                     resultText += `Cost: $${result.cost}, Fuel Saving: ${result.fuel_saving}%, Activity: ${result.activity}\n`;
-                    resultText += `Location: ${result.location}\n\n`;
+                    resultText += `Region: ${result.region}\n\n`;
                 });
 
                 document.getElementById('resultText').textContent = resultText;
